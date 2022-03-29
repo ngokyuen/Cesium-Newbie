@@ -1,5 +1,7 @@
 # Cesium Newbie
 
+![Screenshot](https://github.com/ngokyuen/Cesium-Newbie/blob/main/screencapture/splitlayers.png)
+
 ## Build environment
 1. setup node.js (https://nodejs.org/en/)
 2. (command mode) go to project folder and run "yarn" or "npm install"
@@ -10,4 +12,3 @@
 2. ViewShed(Build)
 3. Measure(Planning): measure distance, area...
 4. Layers(Planning) : layers management (eg: add, remove, edit...)
-
