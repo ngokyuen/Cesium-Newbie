@@ -15,18 +15,18 @@ export default defineComponent({
   setup() {
     const mouseHandler = null;
     const startPosition = null;
-    const spotLightCameraPoint = null;
-    const spotLightCamera = null;
+    const lightCameraPoint = null;
+    const lightCamera = null;
     const frustum = null;
-    const shadowMap = null;
+    // const shadowMap = null;
 
     return {
       mouseHandler,
       startPosition,
-      spotLightCameraPoint,
-      spotLightCamera,
+      lightCameraPoint,
+      lightCamera,
       frustum,
-      shadowMap,
+      // shadowMap,
     };
   },
   computed: {
@@ -62,7 +62,7 @@ export default defineComponent({
       const canvas = scene.canvas;
       let endPosition = null;
 
-      this.buildPoint();
+      // this.buildPoint();
 
       this.mouseHandler = new Cesium.ScreenSpaceEventHandler(canvas);
 
@@ -107,7 +107,7 @@ export default defineComponent({
       const cesiumViewer = window.cesiumViewer;
 
       //add start point about the camera
-      this.spotLightCameraPoint = cesiumViewer.entities.add({
+      this.lightCameraPoint = cesiumViewer.entities.add({
         position: new Cesium.CallbackProperty(() => {
           return this.startPosition;
         }),
@@ -123,8 +123,8 @@ export default defineComponent({
     // object {clearStartPosition: boolean}
     clearPoint(object) {
       const cesiumViewer = window.cesiumViewer;
-      if (this.spotLightCameraPoint) {
-        cesiumViewer.entities.remove(this.spotLightCameraPoint);
+      if (this.lightCameraPoint) {
+        cesiumViewer.entities.remove(this.lightCameraPoint);
         if (object && object.clearStartPosition) {
           this.startPosition = null;
         }
@@ -145,16 +145,16 @@ export default defineComponent({
       //   ),
       //   new Cesium.Cartesian3()
       // );
-      // this.spotLightCamera.up = Cesium.Cartesian3.clone(camera.up);
-      // this.spotLightCamera.up =  Cesium.Cartesian3.clone(Cesium.Cartesian3.UNIT_Z);
-      // this.spotLightCamera.position = startPosition;
-      // this.spotLightCamera.direction = Cesium.Cartesian3.clone(Cesium.Cartesian3.UNIT_Z);
-      // this.spotLightCamera.up = Cesium.Cartesian3.clone(Cesium.Cartesian3.UNIT_X);
+      // this.lightCamera.up = Cesium.Cartesian3.clone(camera.up);
+      // this.lightCamera.up =  Cesium.Cartesian3.clone(Cesium.Cartesian3.UNIT_Z);
+      // this.lightCamera.position = startPosition;
+      // this.lightCamera.direction = Cesium.Cartesian3.clone(Cesium.Cartesian3.UNIT_Z);
+      // this.lightCamera.up = Cesium.Cartesian3.clone(Cesium.Cartesian3.UNIT_X);
 
       //camera setting
-      this.spotLightCamera.frustum.fov = Cesium.Math.PI_OVER_THREE;
-      this.spotLightCamera.frustum.near = 0.1;
-      this.spotLightCamera.frustum.far = Cesium.Cartesian3.distance(
+      this.lightCamera.frustum.fov = Cesium.Math.PI_OVER_THREE;
+      this.lightCamera.frustum.near = 0.1;
+      this.lightCamera.frustum.far = Cesium.Cartesian3.distance(
         this.startPosition,
         endPosition
       );
@@ -179,7 +179,7 @@ export default defineComponent({
       );
       const pitch = Cesium.Math.toDegrees(Math.asin(toLocalPosition.z));
 
-      this.spotLightCamera.setView({
+      this.lightCamera.setView({
         destination: this.startPosition,
         orientation: {
           heading: Cesium.Math.toRadians(heading),
@@ -188,13 +188,13 @@ export default defineComponent({
         },
       });
 
-      // console.log("spotLightCamera:", spotLightCamera);
+      // console.log("lightCamera:", lightCamera);
     },
 
     clearSpotLightCamera() {
       const scene = window.cesiumViewer.scene;
-      if (this.spotLightCamera == null) {
-        this.spotLightCamera = new Cesium.Camera(scene);
+      if (this.lightCamera == null) {
+        this.lightCamera = new Cesium.Camera(scene);
       }
     },
 
@@ -204,13 +204,13 @@ export default defineComponent({
       this.clearFrustum();
 
       //  //way 1 failed
-      // const transform4 = Cesium.Transforms.eastNorthUpToFixedFrame(spotLightCamera.position);
+      // const transform4 = Cesium.Transforms.eastNorthUpToFixedFrame(lightCamera.position);
       // const transform3 = new Cesium.Matrix3();
       // Cesium.Matrix3.getRotation(transform4, transform3);
       // const transformQ = Cesium.Quaternion.fromRotationMatrix(transform3);
 
       // // Convert the h/p/r values to a (local-reference) Quaternion
-      // const localHpr = Cesium.HeadingPitchRoll.fromDegrees(spotLightCamera.heading, spotLightCamera.pitch, spotLightCamera.roll);
+      // const localHpr = Cesium.HeadingPitchRoll.fromDegrees(lightCamera.heading, lightCamera.pitch, lightCamera.roll);
       // const localQ = Cesium.Quaternion.fromHeadingPitchRoll(localHpr);
 
       // const orientation = Cesium.Quaternion.multiply(
@@ -221,9 +221,9 @@ export default defineComponent({
 
       // const orientation = Cesium.Quaternion.fromHeadingPitchRoll(
       //   new Cesium.HeadingPitchRoll(
-      //     this.spotLightCamera.heading,
-      //     this.spotLightCamera.pitch,
-      //     this.spotLightCamera.roll
+      //     this.lightCamera.heading,
+      //     this.lightCamera.pitch,
+      //     this.lightCamera.roll
       //   ),
       //   new Cesium.Quaternion()
       // );
@@ -231,14 +231,14 @@ export default defineComponent({
       // // way 2 failed
       // // transform relateive hpr to absolute rotation quaternion
       // const hpr = new Cesium.HeadingPitchRoll(
-      //   this.spotLightCamera.heading,
-      //   this.spotLightCamera.pitch,
-      //   this.spotLightCamera.roll
+      //   this.lightCamera.heading,
+      //   this.lightCamera.pitch,
+      //   this.lightCamera.roll
       // );
 
       // const localQ = Cesium.Quaternion.fromHeadingPitchRoll(hpr);
 
-      // let enu = Cesium.Transforms.eastNorthUpToFixedFrame(this.spotLightCamera.position);
+      // let enu = Cesium.Transforms.eastNorthUpToFixedFrame(this.lightCamera.position);
 
       // let transform3 = new Cesium.Matrix3();
       // Cesium.Matrix4.getMatrix3(enu, transform3);
@@ -249,35 +249,37 @@ export default defineComponent({
 
       //way 3: correct
       const right = Cesium.Cartesian3.negate(
-        this.spotLightCamera.rightWC,
+        this.lightCamera.rightWC,
         new Cesium.Cartesian3()
       );
 
-      let rotation = new Cesium.Matrix3();
-      Cesium.Matrix3.setColumn(rotation, 0, right, rotation);
+      let rotationMatrix3 = new Cesium.Matrix3();
+      // console.log(Object.assign(rotationMatrix3, {}))
+
+      Cesium.Matrix3.setColumn(rotationMatrix3, 0, right, rotationMatrix3);
       Cesium.Matrix3.setColumn(
-        rotation,
+        rotationMatrix3,
         1,
-        this.spotLightCamera.upWC,
-        rotation
+        this.lightCamera.upWC,
+        rotationMatrix3
       );
       Cesium.Matrix3.setColumn(
-        rotation,
+        rotationMatrix3,
         2,
-        this.spotLightCamera.directionWC,
-        rotation
+        this.lightCamera.directionWC,
+        rotationMatrix3
       );
 
-      let orientation = Cesium.Quaternion.fromRotationMatrix(
-        rotation,
+      let orientationQuaternion = Cesium.Quaternion.fromRotationMatrix(
+        rotationMatrix3,
         new Cesium.Quaternion()
       );
 
       const instance = new Cesium.GeometryInstance({
         geometry: new Cesium.FrustumOutlineGeometry({
-          frustum: this.spotLightCamera.frustum,
-          origin: this.spotLightCamera.position,
-          orientation: orientation,
+          frustum: this.lightCamera.frustum,
+          origin: this.lightCamera.position,
+          orientation: orientationQuaternion,
         }),
         attributes: {
           color: Cesium.ColorGeometryInstanceAttribute.fromColor(
@@ -301,9 +303,9 @@ export default defineComponent({
       );
 
       // console.log(this.frustum);
-      // console.log(this.spotLightCamera);
+      // console.log(this.lightCamera);
 
-      // this.frustum.modelMatrix = this.spotLightCamera.modelMatrix
+      // this.frustum.modelMatrix = this.lightCamera.modelMatrix
     },
 
     clearFrustum() {
@@ -316,7 +318,7 @@ export default defineComponent({
       const scene = window.cesiumViewer.scene;
       const shadowMap = new Cesium.ShadowMap({
         context: scene.context,
-        lightCamera: this.spotLightCamera,
+        lightCamera: this.lightCamera,
         cascadesEnabled: false,
         softShadows: true,
         // isPointLight: true,
