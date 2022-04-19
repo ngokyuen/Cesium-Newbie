@@ -14,7 +14,7 @@ run ```yarn serve```
  or ```npm run serve```
 
 ## Features
-1. SplitLayers(Beta): split left and right side to display the layers
+1. SplitLayers(Beta): split left and right side to display the layers ***Cesium 1.92 released this feature
 2. ViewShed(Build)
 3. Measure(Planning): measure distance, area...
 4. Layers(Planning) : layers management (eg: add, remove, edit...)
