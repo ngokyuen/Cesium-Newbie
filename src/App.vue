@@ -14,6 +14,9 @@
         <li>
           <Measure ref="Measure" />
         </li>
+        <li>
+          <Fog ref="Fog" />
+        </li>
       </ul>
     </div>
   </div>
@@ -25,6 +28,7 @@ import Layers from "./components/Layers.vue";
 import SplitLayers from "./components/SplitLayers.vue";
 import ViewShed from "./components/ViewShed.vue";
 import Measure from "./components/Measure.vue";
+import Fog from "./components/Fog.vue";
 
 export default {
   setup() {
@@ -65,7 +69,7 @@ export default {
       this.cesiumViewer.zoomTo(tileset);
     },
   },
-  components: { Layers, SplitLayers, ViewShed, Measure },
+  components: { Layers, SplitLayers, ViewShed, Measure, Fog },
 };
 </script>
 
@@ -109,6 +113,6 @@ body,
 
 #Menu li button.enabled {
   background-color: #000;
-  color: #FFF;
+  color: #fff;
 }
 </style>

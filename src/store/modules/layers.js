@@ -14,6 +14,10 @@ const state = () => ({
   viewShed2: {
     enable: false,
   },
+
+  fog: {
+    enable: false,
+  },
 });
 
 const mutations = {
@@ -38,6 +42,11 @@ const mutations = {
   //Viewshed
   setViewshedEnable(state, enable) {
     state.viewShed.enable = enable;
+  },
+
+  //Fog
+  setFogEnable(state, enable) {
+    state.fog.enable = enable;
   },
 };
 
