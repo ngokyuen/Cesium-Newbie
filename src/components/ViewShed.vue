@@ -31,7 +31,7 @@ export default defineComponent({
   },
   computed: {
     ...mapState({
-      viewShed: (state) => state.layers.viewShed,
+      viewShed: (state) => state.features.viewShed,
     }),
   },
   methods: {

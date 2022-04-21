@@ -24,7 +24,7 @@ export default defineComponent({
 
   computed: {
     ...mapState({
-      splitLayers: (state) => state.layers.splitLayers,
+      splitLayers: (state) => state.features.splitLayers,
     }),
   },
 

@@ -1,8 +1,8 @@
 import { createStore } from 'vuex'
-import layers from './modules/layers'
+import features from './modules/features'
 
 export default createStore({
     modules: {
-        layers
+        features
     }
 })

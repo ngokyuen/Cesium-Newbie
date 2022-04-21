@@ -1,7 +1,7 @@
 <template>
   <div id="MapContainers">
     <div id="CesiumContainer">
-      <ul id="Menu">
+      <ul id="RightMenu">
         <li>
           <Layers ref="Layers" />
         </li>
@@ -18,6 +18,12 @@
           <Fog ref="Fog" />
         </li>
       </ul>
+
+      <ul id="LeftTopFloat">
+        <li>
+          <LocationPanel ref="LocationPanel" />
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -29,6 +35,7 @@ import SplitLayers from "./components/SplitLayers.vue";
 import ViewShed from "./components/ViewShed.vue";
 import Measure from "./components/Measure.vue";
 import Fog from "./components/Fog.vue";
+import LocationPanel from "./components/LocationPanel.vue";
 
 export default {
   setup() {
@@ -69,7 +76,7 @@ export default {
       this.cesiumViewer.zoomTo(tileset);
     },
   },
-  components: { Layers, SplitLayers, ViewShed, Measure, Fog },
+  components: { Layers, SplitLayers, ViewShed, Measure, Fog, LocationPanel },
 };
 </script>
 
@@ -81,7 +88,7 @@ body,
 }
 </style>
 
-<style scoped>
+<style>
 #MapContainers {
   width: 100%;
   height: 100%;
@@ -93,7 +100,7 @@ body,
   flex: 1;
 }
 
-#Menu {
+#RightMenu {
   position: absolute;
   right: 15px;
   top: 50%;
@@ -101,18 +108,29 @@ body,
   list-style: none;
 }
 
-#Menu li {
+#RightMenu li {
   margin-top: 5px;
 }
 
-#Menu li button {
+#RightMenu li button {
   width: 100%;
   padding: 5px;
   font-weight: bold;
 }
 
-#Menu li button.enabled {
+#RightMenu li button.enabled {
   background-color: #000;
   color: #fff;
+}
+
+#LeftTopFloat {
+  position: absolute;
+  left: 15px;
+  top: 0px;
+  z-index: 999;
+  list-style: none;
+  background-color: #fff;
+  color: #000;
+  padding: 3px 5px;
 }
 </style>
