@@ -18,6 +18,16 @@
       />
     </div>
   </template>
+
+  <template v-if="fog.enable">
+    <div class="panel">
+      Distance:
+      <div>
+        Near: <input type="text" v-model="fogStartDistance" /> Far:
+        <input type="text" v-model="fogEndDistance" />
+      </div>
+    </div>
+  </template>
 </template>
 
 <script>
@@ -31,11 +41,17 @@ export default defineComponent({
     let fogVisibility = ref(0.0);
     let fogColor = new Cesium.Color(1.0, 1.0, 1.0, 1.0);
 
+    let fogStartDistance = ref(10);
+    let fogEndDistance = ref(1500);
+
     return {
       fogPostProcessStage,
 
       fogVisibility,
       fogColor,
+
+      fogStartDistance,
+      fogEndDistance,
     };
   },
   computed: {
@@ -72,6 +88,14 @@ export default defineComponent({
               return this.fogVisibility;
             },
             fogColor: this.fogColor,
+
+            fogByDistance: () => {
+              new Cesium.Cartesian2(this.fogStartDistance, this.fogEndDistance);
+            },
+
+            u_time: () => {
+              return Date.now();
+            },
           },
         });
 
@@ -101,9 +125,22 @@ export default defineComponent({
           vec4 origcolor = texture2D(colorTexture, v_textureCoordinates);
           float depth = czm_readDepth(depthTexture, v_textureCoordinates);
           vec4 depthcolor = texture2D(depthTexture, v_textureCoordinates);
-          float f = fogVisibility * (depthcolor.r - 0.3) / 0.2;
+          float f = fogVisibility * (depthcolor.r - 0.3) / 0.5;
           f = clamp(f, 0.0, 1.0);
           gl_FragColor = mix(origcolor, fogColor, f);
+        }
+        `;
+    },
+
+    generateFragmentShaderByDistance() {
+      return `
+        uniform sampler2D colorTexture;
+        uniform sampler2D depthTexture;
+        varying vec2 textureCoordinate;
+
+        void main() {
+          vec2 st = gl_FragCoord.xy/1024.0;
+          gl_FragColor = vec4(1.0,1.0, 0.0,1.0);
         }
         `;
     },
@@ -114,5 +151,6 @@ export default defineComponent({
 <style scoped>
 .panel {
   background-color: white;
+  padding: 3px 5px;
 }
 </style>

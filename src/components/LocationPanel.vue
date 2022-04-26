@@ -37,7 +37,7 @@ export default defineComponent({
         if (cesiumViewer) {
           this.getCenter();
           const camera = cesiumViewer.camera;
-          camera.percentageChanged = 0.01;
+          camera.percentageChanged = 0.1;
           camera.changed.addEventListener(() => {
             this.getCenter();
           });
