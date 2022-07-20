@@ -17,6 +17,9 @@
         <li>
           <Fog ref="Fog" />
         </li>
+        <li>
+          <Spin ref="Spin" />
+        </li>
       </ul>
 
       <ul id="LeftTopFloat">
@@ -35,6 +38,7 @@ import SplitLayers from "./components/SplitLayers.vue";
 import ViewShed from "./components/ViewShed.vue";
 import Measure from "./components/Measure.vue";
 import Fog from "./components/Fog.vue";
+import Spin from "./components/Spin.vue";
 import LocationPanel from "./components/LocationPanel.vue";
 
 export default {
@@ -76,7 +80,7 @@ export default {
       this.cesiumViewer.zoomTo(tileset);
     },
   },
-  components: { Layers, SplitLayers, ViewShed, Measure, Fog, LocationPanel },
+  components: { Layers, SplitLayers, ViewShed, Measure, Fog, Spin, LocationPanel },
 };
 </script>
 
