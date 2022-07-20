@@ -18,3 +18,4 @@ run ```yarn serve```
 2. ViewShed(Build)
 3. Measure(Planning): measure distance, area...
 4. Layers(Planning) : layers management (eg: add, remove, edit...)
+5. Spin(Beta): Rotate with the center point of screen mapping map
