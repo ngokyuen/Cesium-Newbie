@@ -57,7 +57,7 @@ export default {
 
     enableCesiumViewer() {
       Cesium.Ion.defaultAccessToken =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmZjM2YzI2Yy00ZjFhLTQ4YjYtYjQzYS0xMDkwYWM2MmNlZjUiLCJpZCI6MTc2MTUsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NzI0ODQ5NDN9.OXHw84Hz9A0rYmZDA06FSpOaygtcr4pIADSHDKSEokk";
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0M2VjZmNiYy04YWU3LTRlZjItOTVmOC03MDllZDk0NTRkYzciLCJpZCI6MTc2MTUsImlhdCI6MTY3NjYzMTExNX0.dXg_fT85Vf5TddG0X65XYdHEMUC4HfsKVK7fBAOM7Cs";
       this.cesiumViewer = new Cesium.Viewer("CesiumContainer", {});
       window.cesiumViewer = this.cesiumViewer;
       //point cloud
