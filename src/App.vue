@@ -44,8 +44,11 @@ import LocationPanel from "./components/LocationPanel.vue";
 export default {
   setup() {
     const cesiumViewer = null;
+    const clickedPositionC3 = new Cesium.Cartesian3()
+
     return {
       cesiumViewer,
+      clickedPositionC3
     };
   },
   mounted() {
@@ -78,9 +81,49 @@ export default {
       this.addSplitLayersRight(tileset);
       // tileset.debugShowBoundingVolume = true;
       this.cesiumViewer.zoomTo(tileset);
+
+      //add point
+      const clickedPosition = window.cesiumViewer.entities.add({
+          name: "clickedPosition",
+          position: new Cesium.CallbackProperty(()=>{
+            return this.clickedPositionC3
+          }),
+          point: {
+            pixelSize: 10,
+            color: Cesium.Color.YELLOW,
+            outlineColor: Cesium.Color.WHITE,
+            outlineWidth: 1
+          }
+        })
+
+      const handler = new Cesium.ScreenSpaceEventHandler(
+        window.cesiumViewer.canvas
+      );
+      handler.setInputAction((event) => {
+        console.group()
+        console.log("window position: ", event.position);
+
+        const pickedPosition = window.cesiumViewer.scene.pickPosition(event.position);
+        console.log("picked position: ", pickedPosition)
+
+        const pickedItem = window.cesiumViewer.scene.pick(event.position);
+        console.log("picked Item: ", pickedItem);
+
+        this.clickedPositionC3 = pickedPosition
+
+        console.groupEnd()
+      }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
     },
   },
-  components: { Layers, SplitLayers, ViewShed, Measure, Fog, Spin, LocationPanel },
+  components: {
+    Layers,
+    SplitLayers,
+    ViewShed,
+    Measure,
+    Fog,
+    Spin,
+    LocationPanel,
+  },
 };
 </script>
 
